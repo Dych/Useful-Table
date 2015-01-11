@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="css/useful-table.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/demo.css">
+  <div id="test">
+  
+  </div>
+
+<!--<script type="text/javascript" src="js/final.js"></script>-->
+<script type="text/javascript" src="js/useful-table.js"></script>
+
+<script type="text/javascript">
+var table = new UsefulTable("test",true);
+
+//SET HEADER
+table.setHeader({
+    ID        : { empty : false , editable : false, type:"integer"},
+    Firstname : { empty : false },
+    Age       : { empty : false , type : "integer"}
+  });
+
+
+//DD ONE ROW
+table.addOneRow({
+    ID : 1,
+    Firstname : "Vauroi",
+    Age : 21
+ }); 
+
+//ADD SEVERAL ROW
+table.addRows([
+  {
+    ID : 2,
+    Firstname : "Paul",
+    Age : 27
+  },
+  {
+    ID : 3,
+    Firstname : "Bob",
+    Age : 52
+  },
+  {
+    ID : 4,
+    Firstname : "Tom",
+    Age : 44
+  }
+]);
+
+//UPDATE
+table.updateRow({
+    ID : 2,
+    Firstname : "Paul",
+    Age : 42
+  },1);
+
+//REMOVE
+table.removeRow(2);
+
+
+var row = table.getRow(1).Firstname;
+
+
+//Event
+table.listenModification(function (respect,row,key,oldValue) {
+  var txt =  "Modification : ";
+  txt += " Constraint is respected : " + respect;
+  txt += " ,New Value : " + row[key];
+  txt += " ,Last Value : " + oldValue;
+  console.log(txt);
+});
+
+table.listenRemove(function (row) {
+  console.log("Remove");
+  console.log(row);
+});
+
+
+</script>
