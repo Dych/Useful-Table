@@ -116,6 +116,8 @@ GobalTabConstraint.isValidRow = function(header,row){
 	for(var i = 0 ; i < propsHeader.length ; i++)
 		if(!this.isValidCell(header[propsHeader[i]],row[propsHeader[i]]) )
 			return false;
+		else if(row[propsHeader[i]] == null)
+			row[propsHeader[i]] = "";
 
 	return true;
 };
@@ -449,7 +451,8 @@ UsefulTable.prototype.removeRow = function(index){
 	var propsKey = key.getAllOwnProperties();
 
 	for(var i = 0; i < propsKey.length ;i++)
-		this.header[propsKey[i]].err--;
+		if(key[propsKey[i]])
+			this.header[propsKey[i]].err--;
 	
 	this.rows.splice(rowsIndex,1);
 	this.displayRows.splice(index,1);
